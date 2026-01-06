@@ -23,43 +23,14 @@ export default defineConfig({
     assetsInlineLimit: 4096, // Inline assets smaller than 4kb
     assetsDir: "assets",
     // Optimize images
-    cssCodeSplit: true,
+    cssCodeSplit: false, // Disable CSS code splitting untuk mengurangi HTTP requests
     rollupOptions: {
       output: {
-        // Manual chunking strategy untuk optimasi loading
-        // Strategi lebih aman: hanya pisahkan library besar yang tidak terlalu bergantung pada React internals
+        // Simplified chunking strategy - hanya 2 chunks utama untuk mengurangi HTTP requests
         manualChunks: (id) => {
+          // Semua vendor libraries jadi satu chunk besar
+          // Ini mengurangi jumlah HTTP requests dan mempercepat loading
           if (id.includes("node_modules")) {
-            // Radix UI - library besar, bisa dipisah karena Vite handle dependency dengan benar
-            if (id.includes("@radix-ui")) {
-              return "vendor-radix";
-            }
-            // UI libraries yang besar
-            if (
-              id.includes("framer-motion") ||
-              id.includes("recharts") ||
-              id.includes("embla-carousel")
-            ) {
-              return "vendor-ui";
-            }
-            // i18n libraries
-            if (id.includes("i18next") || id.includes("react-i18next")) {
-              return "vendor-i18n";
-            }
-            // Form libraries
-            if (
-              id.includes("react-hook-form") ||
-              id.includes("@hookform") ||
-              id.includes("zod")
-            ) {
-              return "vendor-forms";
-            }
-            // Query library
-            if (id.includes("@tanstack/react-query")) {
-              return "vendor-query";
-            }
-            // Biarkan React dan library lainnya di chunk default
-            // Vite akan otomatis handle chunking dengan baik
             return "vendor";
           }
         },
