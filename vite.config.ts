@@ -19,6 +19,11 @@ export default defineConfig({
     sourcemap: false,
     // Chunk size warning limit (in kbs)
     chunkSizeWarningLimit: 1000,
+    // Ensure assets are copied correctly
+    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
+    assetsDir: "assets",
+    // Optimize images
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         // Manual chunking strategy untuk optimasi loading
@@ -62,9 +67,13 @@ export default defineConfig({
         chunkFileNames: "assets/js/[name]-[hash].js",
         entryFileNames: "assets/js/[name]-[hash].js",
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name?.split(".") || [];
-          const ext = info[info.length - 1];
-          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+          if (!assetInfo.name) {
+            return `assets/[name]-[hash][extname]`;
+          }
+          const info = assetInfo.name.split(".");
+          const ext = info[info.length - 1]?.toLowerCase();
+          
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext)) {
             return `assets/images/[name]-[hash][extname]`;
           }
           if (/woff2?|eot|ttf|otf/i.test(ext)) {

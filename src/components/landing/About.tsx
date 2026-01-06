@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import OptimizedImage from "@/components/OptimizedImage";
 import aboutStudents from "@/assets/about-students.jpg";
 
 export default function About() {
@@ -27,7 +29,7 @@ export default function About() {
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden">
-              <img
+              <OptimizedImage
                 src={aboutStudents}
                 alt="Mahasiswa sedang belajar coding di laboratorium komputer"
                 className="w-full h-auto object-cover"
@@ -74,9 +76,11 @@ export default function About() {
               ))}
             </ul>
 
-            <Button variant="outline" className="group">
-              {t("about.cta")}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <Button variant="outline" className="group" asChild>
+              <Link to="/profil/visi-misi">
+                {t("about.cta")}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
           </motion.div>
         </div>

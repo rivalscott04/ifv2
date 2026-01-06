@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import OptimizedImage from "@/components/OptimizedImage";
 import heroStudents from "@/assets/hero-students.jpg";
 
 export default function Hero() {
@@ -95,13 +96,14 @@ export default function Hero() {
             className="relative hidden lg:block"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <OptimizedImage
                 src={heroStudents}
                 alt="Mahasiswa informatika sedang berdiskusi dan coding bersama"
+                priority={true}
                 className="w-full h-auto object-cover"
               />
               {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/20 to-transparent pointer-events-none" />
             </div>
 
             {/* Floating Stats Card */}

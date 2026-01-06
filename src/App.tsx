@@ -7,8 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import "./i18n/config"; // Initialize i18n
 
-// Lazy load pages untuk code splitting - hanya load saat diperlukan
-const Index = lazy(() => import("./pages/Index"));
+// Index page tidak di-lazy load karena homepage harus cepat dan gambar harus ter-load dengan benar
+import Index from "./pages/Index";
+
+// Lazy load pages lainnya untuk code splitting - hanya load saat diperlukan
 const Lecturers = lazy(() => import("./pages/Lecturers"));
 const History = lazy(() => import("./pages/History"));
 const VisionMission = lazy(() => import("./pages/VisionMission"));

@@ -94,6 +94,9 @@ const Index = () => {
         <meta name="twitter:image" content="/og-image.jpg" />
         <meta name="twitter:image:alt" content="Program Studi Teknik Informatika - Universitas Mataram" />
 
+        {/* Preload critical images untuk loading lebih cepat */}
+        <link rel="preload" as="image" href={heroStudents} fetchPriority="high" />
+
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
