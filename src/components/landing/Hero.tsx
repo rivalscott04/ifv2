@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import OptimizedImage from "@/components/OptimizedImage";
-import heroStudents from "@/assets/hero-students.jpg";
+import heroStudents from "@/assets/hero-students.jpg?url";
 
 export default function Hero() {
   const { t } = useTranslation();

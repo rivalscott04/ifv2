@@ -11,6 +11,7 @@ import Lecturers from "@/components/landing/Lecturers";
 import News from "@/components/landing/News";
 import CallToAction from "@/components/landing/CallToAction";
 import Footer from "@/components/landing/Footer";
+import heroStudents from "@/assets/hero-students.jpg?url";
 
 const Index = () => {
   // Structured Data untuk SEO

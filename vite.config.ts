@@ -26,14 +26,7 @@ export default defineConfig({
     cssCodeSplit: false, // Disable CSS code splitting untuk mengurangi HTTP requests
     rollupOptions: {
       output: {
-        // Simplified chunking strategy - hanya 2 chunks utama untuk mengurangi HTTP requests
-        manualChunks: (id) => {
-          // Semua vendor libraries jadi satu chunk besar
-          // Ini mengurangi jumlah HTTP requests dan mempercepat loading
-          if (id.includes("node_modules")) {
-            return "vendor";
-          }
-        },
+        // Biarkan Vite handle chunking otomatis - lebih optimal dan cepat
         // Naming pattern untuk chunks
         chunkFileNames: "assets/js/[name]-[hash].js",
         entryFileNames: "assets/js/[name]-[hash].js",
