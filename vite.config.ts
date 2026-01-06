@@ -22,26 +22,18 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Manual chunking strategy untuk optimasi loading
+        // Strategi lebih aman: hanya pisahkan library besar yang tidak terlalu bergantung pada React internals
         manualChunks: (id) => {
-          // Vendor chunks - library besar dipisah
           if (id.includes("node_modules")) {
-            // React core libraries
-            if (
-              id.includes("react") ||
-              id.includes("react-dom") ||
-              id.includes("react-router")
-            ) {
-              return "vendor-react";
-            }
-            // Radix UI components (banyak sekali)
+            // Radix UI - library besar, bisa dipisah karena Vite handle dependency dengan benar
             if (id.includes("@radix-ui")) {
               return "vendor-radix";
             }
-            // UI libraries lainnya
+            // UI libraries yang besar
             if (
               id.includes("framer-motion") ||
-              id.includes("lucide-react") ||
-              id.includes("recharts")
+              id.includes("recharts") ||
+              id.includes("embla-carousel")
             ) {
               return "vendor-ui";
             }
@@ -61,7 +53,8 @@ export default defineConfig({
             if (id.includes("@tanstack/react-query")) {
               return "vendor-query";
             }
-            // Other vendor libraries
+            // Biarkan React dan library lainnya di chunk default
+            // Vite akan otomatis handle chunking dengan baik
             return "vendor";
           }
         },
@@ -85,5 +78,10 @@ export default defineConfig({
     minify: "esbuild", // Lebih cepat dari terser
     // Target modern browsers untuk bundle lebih kecil
     target: "esnext",
+    // CommonJS options untuk compatibility
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
   },
 });
